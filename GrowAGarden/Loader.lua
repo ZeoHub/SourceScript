@@ -600,7 +600,7 @@ showZeoHubLoadingScreen(function()
     minimizeBtn.BackgroundColor3 = Color3.fromRGB(1, 1, 1)
     minimizeBtn.Text = ""
     minimizeBtn.AutoButtonColor = true
-    minimizeBtn.ZIndex = 10
+    minimizeBtn.ZIndex = 11
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
     local minStroke = Instance.new("UIStroke", minimizeBtn)
     minStroke.Color = Color3.fromRGB(255, 220, 120)
