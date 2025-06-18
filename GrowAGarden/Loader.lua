@@ -619,74 +619,77 @@ showZeoHubLoadingScreen(function()
         end)
     end
 
-    local minimized = false
-    local prevSize, prevPos = window.Size, window.Position
-    local minimizeBtn = Instance.new("TextButton", topBar)
-    minimizeBtn.Name = "MinimizeButton"
-    minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
-    minimizeBtn.Position = UDim2.new(1, -34, 0, 7)
-    minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-    minimizeBtn.Text = "—"
-    minimizeBtn.AutoButtonColor = true
-    minimizeBtn.ZIndex = 12
-    Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
-    local minStroke = Instance.new("UIStroke", minimizeBtn)
-    minStroke.Color = Color3.fromRGB(255, 255, 255)
-    minStroke.Thickness = 1
-    minStroke.Transparency = 0.13
-    local minusIcon = Instance.new("Frame", minimizeBtn)
-    minusIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-    minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-    minusIcon.Size = UDim2.new(0, 14, 0, 3)
-    minusIcon.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-    minusIcon.BorderSizePixel = 0
-    Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
+local minimized = false
+local prevSize, prevPos = window.Size, window.Position
+local minimizeBtn = Instance.new("TextButton", topBar)
+minimizeBtn.Name = "MinimizeButton"
+minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
+minimizeBtn.Position = UDim2.new(1, -66, 0, 7) -- (adjust for spacing if you have a close button)
+minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
+minimizeBtn.Text = "—"
+minimizeBtn.TextColor3 = Color3.new(1,1,1) -- Set text color to white
+minimizeBtn.Font = Enum.Font.GothamBold
+minimizeBtn.TextSize = 22
+minimizeBtn.AutoButtonColor = true
+minimizeBtn.ZIndex = 12
+Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
+local minStroke = Instance.new("UIStroke", minimizeBtn)
+minStroke.Color = Color3.fromRGB(255, 255, 255)
+minStroke.Thickness = 1
+minStroke.Transparency = 0.13
+local minusIcon = Instance.new("Frame", minimizeBtn)
+minusIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+minusIcon.Size = UDim2.new(0, 14, 0, 3)
+minusIcon.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
+minusIcon.BorderSizePixel = 0
+minusIcon.ZIndex = 13
+Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
 
-    minimizeBtn.MouseButton1Click:Connect(function()
-        minimized = not minimized
-        if minimized then
-            prevSize = window.Size
-            prevPos = window.Position
-            window.Size = UDim2.new(0, 300, 0, 36)
-            mainArea.Visible = false
-            sidebar.Visible = false
-            glass.Visible = false
-            minusIcon.Visible = false
-            if not minimizeBtn:FindFirstChild("PlusIcon") then
-                local plusIcon = Instance.new("TextLabel")
-                plusIcon.Name = "PlusIcon"
-                plusIcon.Text = "+"
-                plusIcon.Font = Enum.Font.GothamBold
-                plusIcon.TextColor3 = Color3.fromRGB(1,1,1)
-                plusIcon.TextSize = 20
-                plusIcon.BackgroundTransparency = 1
-                plusIcon.Size = UDim2.new(1,0,1,0)
-                plusIcon.Position = UDim2.new(0,0,0,0)
-                plusIcon.ZIndex = 12
-                plusIcon.Parent = minimizeBtn
-            end
-        else
-            window.Size = prevSize
-            window.Position = prevPos
-            mainArea.Visible = true
-            sidebar.Visible = true
-            glass.Visible = true
-            minusIcon.Visible = true
-            local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-            if plusIcon then plusIcon:Destroy() end
+minimizeBtn.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    if minimized then
+        prevSize = window.Size
+        prevPos = window.Position
+        window.Size = UDim2.new(0, 300, 0, 36)
+        mainArea.Visible = false
+        sidebar.Visible = false
+        glass.Visible = false
+        minusIcon.Visible = false
+        if not minimizeBtn:FindFirstChild("PlusIcon") then
+            local plusIcon = Instance.new("TextLabel")
+            plusIcon.Name = "PlusIcon"
+            plusIcon.Text = "+"
+            plusIcon.Font = Enum.Font.GothamBold
+            plusIcon.TextColor3 = Color3.new(1, 1, 1) -- White!
+            plusIcon.TextSize = 20
+            plusIcon.BackgroundTransparency = 1
+            plusIcon.Size = UDim2.new(1,0,1,0)
+            plusIcon.Position = UDim2.new(0,0,0,0)
+            plusIcon.ZIndex = 14
+            plusIcon.Parent = minimizeBtn
         end
-    end)
+    else
+        window.Size = prevSize
+        window.Position = prevPos
+        mainArea.Visible = true
+        sidebar.Visible = true
+        glass.Visible = true
+        minusIcon.Visible = true
+        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+        if plusIcon then plusIcon:Destroy() end
+    end
+end)
 
-    minimizeBtn.MouseEnter:Connect(function()
-        minStroke.Color = Color3.fromRGB(255, 255, 255)
-        minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
-        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(1, 1, 1) end
-    end)
-    minimizeBtn.MouseLeave:Connect(function()
-        minStroke.Color = Color3.fromRGB(255, 220, 120)
-        minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
-        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(255, 255, 255) end
-    end)
+minimizeBtn.MouseEnter:Connect(function()
+    minStroke.Color = Color3.fromRGB(255, 255, 255)
+    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
+    local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end -- White!
+end)
+minimizeBtn.MouseLeave:Connect(function()
+    minStroke.Color = Color3.fromRGB(255, 220, 120)
+    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
+    local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end -- White!
 end)
