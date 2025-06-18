@@ -351,7 +351,7 @@ showZeoHubLoadingScreen(function()
         -- Card 2: Update Log
         makeCard(
             "Update Log",
-            "Soon",
+            "...",
             false
         )
 
@@ -368,32 +368,7 @@ local function renderScriptList(category)
     local scripts = scriptLists[category] or {}
 
     local header = Instance.new("TextLabel", mainArea)
-    header.Text = category.." Scripts"
-    header.Font = Enum.Font.GothamBold
-    header.TextColor3 = Color3.new(1, 1, 1)
-    header.TextSize = 20
-    header.BackgroundTransparency = 1
-    header.Size = UDim2.new(1, -24, 0, 32)
-    header.Position = UDim2.new(0, 12, 0, 12)
-
-    local listHolder = Instance.new("Frame", mainArea)
-    listHolder.BackgroundTransparency = 1
-    listHolder.Size = UDim2.new(1, -24, 1, -60)
-    listHolder.Position = UDim2.new(0, 12, 0, 52)
-    local ll = Instance.new("UIListLayout", listHolder)
-    ll.SortOrder = Enum.SortOrder.LayoutOrder
-    ll.Padding = UDim.new(0, 10)
-
-    -- To ensure only one dropdown open at a time:
-    local openDropdown = nil
-    local openButton = nil
-
-local function renderScriptList(category)
-    clearMain()
-    local scripts = scriptLists[category] or {}
-
-    local header = Instance.new("TextLabel", mainArea)
-    header.Text = category.." Scripts"
+    header.Text = category .. " Scripts"
     header.Font = Enum.Font.GothamBold
     header.TextColor3 = Color3.new(1, 1, 1)
     header.TextSize = 20
@@ -432,7 +407,7 @@ local function renderScriptList(category)
         local dropPanel = Instance.new("Frame")
         dropPanel.Size = UDim2.new(1, 0, 0, 76)
         dropPanel.BackgroundColor3 = Color3.fromRGB(40, 40, 48)
-        dropPanel.BackgroundTransparency = 0.18
+        dropPanel.BackgroundTransparency = 1
         dropPanel.BorderSizePixel = 0
         dropPanel.Visible = false
         Instance.new("UICorner", dropPanel).CornerRadius = UDim.new(0, 7)
@@ -442,46 +417,77 @@ local function renderScriptList(category)
         dropLayout.SortOrder = Enum.SortOrder.LayoutOrder
         dropLayout.Padding = UDim.new(0, 6)
 
-        -- Copy Script button
-        local copyBtn = Instance.new("TextButton", dropPanel)
-        copyBtn.Text = "Copy Script"
-        copyBtn.Font = Enum.Font.Gotham
-        copyBtn.TextColor3 = Color3.new(1, 1, 1)
-        copyBtn.TextSize = 16
-        copyBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
-        copyBtn.BackgroundTransparency = 0
-        copyBtn.Size = UDim2.new(1, -18, 0, 32)
-        copyBtn.Position = UDim2.new(0, 9, 0, 6)
-        copyBtn.AutoButtonColor = true
-        copyBtn.BorderSizePixel = 0
-        Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
-        copyBtn.MouseButton1Click:Connect(function()
-            copyBtn.Text = "Copying..."
-            local scriptSource = game:HttpGet(script.url)
-            setclipboard(scriptSource)
-            copyBtn.Text = "Copied!"
-            task.wait(1)
-            copyBtn.Text = "Copy Script"
-        end)
-
-        -- Execute Script button
-        local execBtn = Instance.new("TextButton", dropPanel)
+        -- 1. Execute Script button (top)
+        local execBtn = Instance.new("TextButton")
         execBtn.Text = "Execute Script"
         execBtn.Font = Enum.Font.Gotham
         execBtn.TextColor3 = Color3.new(1, 1, 1)
         execBtn.TextSize = 16
-        execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
+        execBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
         execBtn.BackgroundTransparency = 0
         execBtn.Size = UDim2.new(1, -18, 0, 32)
-        execBtn.Position = UDim2.new(0, 9, 0, 44)
         execBtn.AutoButtonColor = true
         execBtn.BorderSizePixel = 0
         Instance.new("UICorner", execBtn).CornerRadius = UDim.new(0, 6)
+        execBtn.Parent = dropPanel
+
+        -- 2. Copy Script button (bottom)
+        local copyBtn = Instance.new("TextButton")
+        copyBtn.Text = "Copy Script"
+        copyBtn.Font = Enum.Font.Gotham
+        copyBtn.TextColor3 = Color3.new(1, 1, 1)
+        copyBtn.TextSize = 16
+        copyBtn.BackgroundColor3 = Color3.fromRGB(139, 128, 0)
+        copyBtn.BackgroundTransparency = 0
+        copyBtn.Size = UDim2.new(1, -18, 0, 32)
+        copyBtn.AutoButtonColor = true
+        copyBtn.BorderSizePixel = 0
+        Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
+        copyBtn.Parent = dropPanel
+
+        -- Button logic connections
         execBtn.MouseButton1Click:Connect(function()
-            gui:Destroy()
-            pcall(function()
-                loadstring(game:HttpGet(script.url))()
+            local oldText = execBtn.Text
+            execBtn.Text = "Loading..."
+            execBtn.AutoButtonColor = false
+            execBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 60)
+            execBtn.Active = false
+            copyBtn.Active = false
+
+            local success, err = pcall(function()
+                local source = game:HttpGet(script.url)
+                loadstring(source)()
             end)
+
+            if success then
+                execBtn.Text = "Executed!"
+                task.wait(1)
+                gui:Destroy()
+            else
+                execBtn.Text = "Error!"
+                print("Script execution error:", err)
+                task.wait(5)
+                execBtn.Text = oldText
+                execBtn.AutoButtonColor = true
+                execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
+                execBtn.Active = true
+                copyBtn.Active = true
+            end
+        end)
+
+        copyBtn.MouseButton1Click:Connect(function()
+            copyBtn.Text = "Copying..."
+            local ok, scriptSource = pcall(function()
+                return game:HttpGet(script.url)
+            end)
+            if ok then
+                setclipboard(scriptSource)
+                copyBtn.Text = "Copied!"
+            else
+                copyBtn.Text = "Error!"
+            end
+            task.wait(1)
+            copyBtn.Text = "Copy Script"
         end)
 
         -- Dropdown logic
