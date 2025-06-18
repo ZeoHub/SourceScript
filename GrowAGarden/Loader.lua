@@ -162,7 +162,6 @@ showZeoHubLoadingScreen(function()
     dragBar.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
     dragBar.ZIndex = 2
     Instance.new("UICorner", dragBar).CornerRadius = UDim.new(1, 1)
-
     local dragHitbox = Instance.new("TextButton", window)
     dragHitbox.Size = UDim2.new(1, 0, 0, 20)
     dragHitbox.Position = UDim2.new(0, 0, 1, -20)
@@ -627,12 +626,12 @@ showZeoHubLoadingScreen(function()
     minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
     minimizeBtn.Position = UDim2.new(1, -34, 0, 7)
     minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-    minimizeBtn.Text = ""
+    minimizeBtn.Text = "—"
     minimizeBtn.AutoButtonColor = true
     minimizeBtn.ZIndex = 12
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
     local minStroke = Instance.new("UIStroke", minimizeBtn)
-    minStroke.Color = Color3.fromRGB(0, 128, 0)
+    minStroke.Color = Color3.fromRGB(255, 255, 255)
     minStroke.Thickness = 1
     minStroke.Transparency = 0.13
     local minusIcon = Instance.new("Frame", minimizeBtn)
