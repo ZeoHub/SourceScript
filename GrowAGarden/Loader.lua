@@ -173,7 +173,7 @@ showZeoHubLoadingScreen(function()
     window.BorderSizePixel = 0
     window.Parent = gui
     Instance.new("UICorner", window).CornerRadius = UDim.new(0, 14)
-
+    
     -- Bottom Drag Line (acts as handle for moving)
     local dragLine = Instance.new("Frame")
     dragLine.Name = "BottomDragLine"
@@ -183,7 +183,7 @@ showZeoHubLoadingScreen(function()
     dragLine.BorderSizePixel = 0
     dragLine.Parent = window
     Instance.new("UICorner", dragLine).CornerRadius = UDim.new(0, 5)
-
+    
     -- Optional grip visual
     local grip = Instance.new("Frame")
     grip.Size = UDim2.new(0.2, 0, 0.4, 0)
@@ -192,34 +192,45 @@ showZeoHubLoadingScreen(function()
     grip.BorderSizePixel = 0
     grip.Parent = dragLine
     Instance.new("UICorner", grip).CornerRadius = UDim.new(1, 0)
-
-    -- DRAG TO MOVE LOGIC
+    
+    -- DRAG TO MOVE LOGIC (PC + MOBILE)
+    local UserInputService = game:GetService("UserInputService")
     local dragging = false
-    local dragInput, mouseStart, windowStart
-
+    local dragInput, inputType, startPos, startWindowPos
+    
+    local function beginDrag(input)
+        dragging = true
+        dragInput = input
+        inputType = input.UserInputType
+        startPos = (inputType == Enum.UserInputType.Touch) and input.Position or UserInputService:GetMouseLocation()
+        startWindowPos = window.Position
+        dragLine.BackgroundColor3 = Color3.fromRGB(55, 100, 200)
+    end
+    
+    local function endDrag()
+        dragging = false
+        dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    end
+    
     dragLine.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            dragInput = input
-            mouseStart = Vector2.new(input.Position.X, input.Position.Y)
-            windowStart = window.Position
-            dragLine.BackgroundColor3 = Color3.fromRGB(130, 130, 130) -- highlight while dragging
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            beginDrag(input)
         end
     end)
-
+    
     dragLine.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-            dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            endDrag()
         end
     end)
-
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-            local delta = Vector2.new(input.Position.X, input.Position.Y) - mouseStart
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if dragging and (input == dragInput) then
+            local currentPos = (inputType == Enum.UserInputType.Touch) and input.Position or UserInputService:GetMouseLocation()
+            local delta = currentPos - startPos
             window.Position = UDim2.new(
-                windowStart.X.Scale, windowStart.X.Offset + delta.X,
-                windowStart.Y.Scale, windowStart.Y.Offset + delta.Y
+                startWindowPos.X.Scale, startWindowPos.X.Offset + delta.X,
+                startWindowPos.Y.Scale, startWindowPos.Y.Offset + delta.Y
             )
         end
     end)
