@@ -161,7 +161,7 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-    -- Main Window
+        -- Main Window
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
     window.Size = UDim2.new(0, 400, 0, 250)
@@ -171,11 +171,11 @@ showZeoHubLoadingScreen(function()
     window.Draggable = false
     window.Parent = gui
     
-    -- Bottom Drag Bar
+    -- Bottom Drag Bar (2 pixels thick)
     local dragBar = Instance.new("Frame")
     dragBar.Name = "DragBar"
-    dragBar.Size = UDim2.new(2, 0, 0, 16)
-    dragBar.Position = UDim2.new(0, 0, 1, -16)
+    dragBar.Size = UDim2.new(1, 0, 0, 2)
+    dragBar.Position = UDim2.new(0, 0, 1, -2)
     dragBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     dragBar.Active = true
     dragBar.Parent = window
@@ -183,8 +183,6 @@ showZeoHubLoadingScreen(function()
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
     local startPos, startWindowPos
-    
-    -- For mobile: track the current touch
     local currentTouch = nil
     
     dragBar.InputBegan:Connect(function(input)
@@ -212,7 +210,6 @@ showZeoHubLoadingScreen(function()
             if input.UserInputType == Enum.UserInputType.MouseMovement then
                 cur = UserInputService:GetMouseLocation()
             elseif input.UserInputType == Enum.UserInputType.Touch then
-                -- only respond to the currently tracked touch
                 if currentTouch and input == currentTouch then
                     cur = input.Position
                 else
