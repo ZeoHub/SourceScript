@@ -161,42 +161,77 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-    -- Main Window
+        -- Main Window
+    local gui = Instance.new("ScreenGui")
+    gui.IgnoreGuiInset = true
+    gui.Parent = game.CoreGui
+
+    -- Main Window with smooth rounded corners
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.Size = UDim2.new(0, 400, 0, 250)
-    window.Position = UDim2.new(0.5, -200, 0.5, -125)
-    window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    window.Size = UDim2.new(0, 420, 0, 260)
+    window.Position = UDim2.new(0.5, -210, 0.5, -130)
+    window.BackgroundColor3 = Color3.fromRGB(35, 36, 40)
+    window.BackgroundTransparency = 0
     window.Active = true
     window.Draggable = false
-    window.Parent = game.CoreGui:FindFirstChildOfClass("ScreenGui") or Instance.new("ScreenGui", game.CoreGui)
-    
-    -- Visible, thin drag bar (2px)
+    window.BorderSizePixel = 0
+    window.Parent = gui
+
+    local windowCorner = Instance.new("UICorner")
+    windowCorner.CornerRadius = UDim.new(0, 18)
+    windowCorner.Parent = window
+
+    -- Bottom drag bar (visible, 2px thick, rounded)
     local dragBar = Instance.new("Frame")
-    dragBar.Size = UDim2.new(1, 0, 0, 2)
-    dragBar.Position = UDim2.new(0, 0, 1, -2)
-    dragBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    dragBar.Size = UDim2.new(1, -32, 0, 2)
+    dragBar.Position = UDim2.new(0, 16, 1, -10) -- 16px padding from sides, 8px up from bottom + 2px bar
+    dragBar.BackgroundColor3 = Color3.fromRGB(60, 120, 220)
     dragBar.BorderSizePixel = 0
+    dragBar.ZIndex = 2
     dragBar.Parent = window
-    
-    -- Invisible hitbox for easy dragging (e.g., 1x16)
+
+    local dragBarCorner = Instance.new("UICorner")
+    dragBarCorner.CornerRadius = UDim.new(1, 1)
+    dragBarCorner.Parent = dragBar
+
+    -- Invisible hitbox for dragging, thicker but fully transparent
     local dragHitbox = Instance.new("TextButton")
-    dragHitbox.Size = UDim2.new(1, 0, 0, 16)
-    dragHitbox.Position = UDim2.new(0, 0, 1, -16)
-    dragHitbox.BackgroundTransparency = 1 -- fully invisible
+    dragHitbox.Size = UDim2.new(1, 0, 0, 20)
+    dragHitbox.Position = UDim2.new(0, 0, 1, -20)
+    dragHitbox.BackgroundTransparency = 1
     dragHitbox.BorderSizePixel = 0
     dragHitbox.Text = ""
     dragHitbox.AutoButtonColor = false
     dragHitbox.Active = true
-    dragHitbox.ZIndex = dragBar.ZIndex + 1
+    dragHitbox.ZIndex = 3
     dragHitbox.Parent = window
-    
-    -- Drag logic (PC + Mobile)
+
+    -- Example Close Button (top right)
+    local closeButton = Instance.new("TextButton")
+    closeButton.Size = UDim2.new(0, 28, 0, 28)
+    closeButton.Position = UDim2.new(1, -36, 0, 8)
+    closeButton.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
+    closeButton.Text = "✕"
+    closeButton.Font = Enum.Font.GothamBold
+    closeButton.TextSize = 18
+    closeButton.TextColor3 = Color3.new(1, 1, 1)
+    closeButton.ZIndex = 10
+    closeButton.Parent = window
+    local closeCorner = Instance.new("UICorner")
+    closeCorner.CornerRadius = UDim.new(0, 12)
+    closeCorner.Parent = closeButton
+
+    closeButton.MouseButton1Click:Connect(function()
+        gui:Destroy()
+    end)
+
+    -- Smooth drag logic (PC + Mobile)
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
     local startPos, startWindowPos
     local currentTouch = nil
-    
+
     dragHitbox.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = true
@@ -215,7 +250,7 @@ showZeoHubLoadingScreen(function()
             end
         end)
     end)
-    
+
     UserInputService.InputChanged:Connect(function(input)
         if dragging then
             local cur
