@@ -159,7 +159,7 @@ showZeoHubLoadingScreen(function()
     local dragBar = Instance.new("Frame", window)
     dragBar.Size = UDim2.new(1, -32, 0, 2)
     dragBar.Position = UDim2.new(0, 16, 1, -10)
-    dragBar.BackgroundColor3 = Color3.fromRGB(60, 120, 220)
+    dragBar.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
     dragBar.ZIndex = 2
     Instance.new("UICorner", dragBar).CornerRadius = UDim.new(1, 1)
 
