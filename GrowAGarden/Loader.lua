@@ -626,20 +626,20 @@ showZeoHubLoadingScreen(function()
     minimizeBtn.Name = "MinimizeButton"
     minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
     minimizeBtn.Position = UDim2.new(1, -34, 0, 7)
-    minimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
     minimizeBtn.Text = ""
     minimizeBtn.AutoButtonColor = true
     minimizeBtn.ZIndex = 12
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
     local minStroke = Instance.new("UIStroke", minimizeBtn)
-    minStroke.Color = Color3.fromRGB(255, 220, 120)
+    minStroke.Color = Color3.fromRGB(0, 128, 0)
     minStroke.Thickness = 1
     minStroke.Transparency = 0.13
     local minusIcon = Instance.new("Frame", minimizeBtn)
     minusIcon.AnchorPoint = Vector2.new(0.5, 0.5)
     minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
     minusIcon.Size = UDim2.new(0, 14, 0, 3)
-    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
+    minusIcon.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
     minusIcon.BorderSizePixel = 0
     Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
 
