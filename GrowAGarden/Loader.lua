@@ -388,6 +388,31 @@ local function renderScriptList(category)
     local openDropdown = nil
     local openButton = nil
 
+local function renderScriptList(category)
+    clearMain()
+    local scripts = scriptLists[category] or {}
+
+    local header = Instance.new("TextLabel", mainArea)
+    header.Text = category.." Scripts"
+    header.Font = Enum.Font.GothamBold
+    header.TextColor3 = Color3.new(1, 1, 1)
+    header.TextSize = 20
+    header.BackgroundTransparency = 1
+    header.Size = UDim2.new(1, -24, 0, 32)
+    header.Position = UDim2.new(0, 12, 0, 12)
+
+    local listHolder = Instance.new("Frame", mainArea)
+    listHolder.BackgroundTransparency = 1
+    listHolder.Size = UDim2.new(1, -24, 1, -60)
+    listHolder.Position = UDim2.new(0, 12, 0, 52)
+    local ll = Instance.new("UIListLayout", listHolder)
+    ll.SortOrder = Enum.SortOrder.LayoutOrder
+    ll.Padding = UDim.new(0, 10)
+
+    -- To ensure only one dropdown open at a time:
+    local openDropdown = nil
+    local openButton = nil
+
     for _, script in ipairs(scripts) do
         -- Parent button (acts as dropdown toggle)
         local dropdownBtn = Instance.new("TextButton")
@@ -407,7 +432,7 @@ local function renderScriptList(category)
         local dropPanel = Instance.new("Frame")
         dropPanel.Size = UDim2.new(1, 0, 0, 76)
         dropPanel.BackgroundColor3 = Color3.fromRGB(40, 40, 48)
-        dropPanel.BackgroundTransparency = 1
+        dropPanel.BackgroundTransparency = 0.18
         dropPanel.BorderSizePixel = 0
         dropPanel.Visible = false
         Instance.new("UICorner", dropPanel).CornerRadius = UDim.new(0, 7)
@@ -417,50 +442,7 @@ local function renderScriptList(category)
         dropLayout.SortOrder = Enum.SortOrder.LayoutOrder
         dropLayout.Padding = UDim.new(0, 6)
 
-        -- Execute Script button
-        local execBtn = Instance.new("TextButton", dropPanel)
-        execBtn.Text = "Execute Script"
-        execBtn.Font = Enum.Font.Gotham
-        execBtn.TextColor3 = Color3.new(1, 1, 1)
-        execBtn.TextSize = 16
-        execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
-        execBtn.BackgroundTransparency = 0
-        execBtn.Size = UDim2.new(1, -18, 0, 32)
-        execBtn.Position = UDim2.new(0, 9, 0, 44)
-        execBtn.AutoButtonColor = true
-        execBtn.BorderSizePixel = 0
-        Instance.new("UICorner", execBtn).CornerRadius = UDim.new(0, 6)
-        execBtn.MouseButton1Click:Connect(function()
-            local oldText = execBtn.Text
-            execBtn.Text = "Loading..."
-            execBtn.AutoButtonColor = false
-            execBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 60)
-            execBtn.Active = false
-            copyBtn.Active = false
-
-            local success, err = pcall(function()
-                local source = game:HttpGet(script.url)
-                loadstring(source)()
-            end)
-
-            if success then
-                execBtn.Text = "Executed!"
-                task.wait(1)
-                gui:Destroy()
-            else
-                execBtn.Text = "Executed!"
-                print("Script execution error:", err)
-                -- show the error for longer
-                task.wait(3)
-                execBtn.Text = oldText
-                execBtn.AutoButtonColor = true
-                execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
-                execBtn.Active = true
-                copyBtn.Active = true
-            end
-        end)
-
-                -- Copy Script button
+        -- Copy Script button
         local copyBtn = Instance.new("TextButton", dropPanel)
         copyBtn.Text = "Copy Script"
         copyBtn.Font = Enum.Font.Gotham
@@ -482,6 +464,25 @@ local function renderScriptList(category)
             copyBtn.Text = "Copy Script"
         end)
 
+        -- Execute Script button
+        local execBtn = Instance.new("TextButton", dropPanel)
+        execBtn.Text = "Execute Script"
+        execBtn.Font = Enum.Font.Gotham
+        execBtn.TextColor3 = Color3.new(1, 1, 1)
+        execBtn.TextSize = 16
+        execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
+        execBtn.BackgroundTransparency = 0
+        execBtn.Size = UDim2.new(1, -18, 0, 32)
+        execBtn.Position = UDim2.new(0, 9, 0, 44)
+        execBtn.AutoButtonColor = true
+        execBtn.BorderSizePixel = 0
+        Instance.new("UICorner", execBtn).CornerRadius = UDim.new(0, 6)
+        execBtn.MouseButton1Click:Connect(function()
+            gui:Destroy()
+            pcall(function()
+                loadstring(game:HttpGet(script.url))()
+            end)
+        end)
 
         -- Dropdown logic
         local expanded = false
