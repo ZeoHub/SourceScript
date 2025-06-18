@@ -224,6 +224,7 @@ showZeoHubLoadingScreen(function()
     topBar.BackgroundTransparency = 0.14
     topBar.Size = UDim2.new(1, 0, 0, 36)
     topBar.BorderSizePixel = 0
+    topBar.ZIndex = 10
     Instance.new("UICorner", topBar).CornerRadius = UDim.new(0, 14)
 
     local titleLabel = Instance.new("TextLabel", topBar)
@@ -235,6 +236,33 @@ showZeoHubLoadingScreen(function()
     titleLabel.AnchorPoint = Vector2.new(0, 0.5)
     titleLabel.Position = UDim2.new(0, 16, 0.5, 0)
     titleLabel.Size = UDim2.new(1, -32, 1, 0)
+    titleLabel.ZIndex = 11
+
+    -- Add CLOSE BUTTON (top right)
+    local closeBtn = Instance.new("TextButton", topBar)
+    closeBtn.Name = "CloseButton"
+    closeBtn.Size = UDim2.new(0, 28, 0, 28)
+    closeBtn.Position = UDim2.new(1, -34, 0, 4)
+    closeBtn.AnchorPoint = Vector2.new(0,0)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
+    closeBtn.Text = "✕"
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 18
+    closeBtn.TextColor3 = Color3.new(1,1,1)
+    closeBtn.BackgroundTransparency = 0
+    closeBtn.AutoButtonColor = true
+    closeBtn.ZIndex = 12
+    Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 12)
+    closeBtn.MouseButton1Click:Connect(function()
+        gui:Destroy()
+    end)
+    closeBtn.MouseEnter:Connect(function()
+        closeBtn.BackgroundColor3 = Color3.fromRGB(255,40,40)
+    end)
+    closeBtn.MouseLeave:Connect(function()
+        closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
+    end)
+
 
     local sidebar = Instance.new("Frame", window)
     sidebar.Name = "Sidebar"
