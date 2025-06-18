@@ -597,10 +597,10 @@ showZeoHubLoadingScreen(function()
     minimizeBtn.Name = "MinimizeButton"
     minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
     minimizeBtn.Position = UDim2.new(1, -34, 0, 7)
-    minimizeBtn.BackgroundColor3 = Color3.fromRGB(1, 1, 1)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
     minimizeBtn.Text = ""
     minimizeBtn.AutoButtonColor = true
-    minimizeBtn.ZIndex = 11
+    minimizeBtn.ZIndex = 12
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
     local minStroke = Instance.new("UIStroke", minimizeBtn)
     minStroke.Color = Color3.fromRGB(255, 220, 120)
@@ -629,12 +629,12 @@ showZeoHubLoadingScreen(function()
                 plusIcon.Name = "PlusIcon"
                 plusIcon.Text = "+"
                 plusIcon.Font = Enum.Font.GothamBold
-                plusIcon.TextColor3 = Color3.fromRGB(255,255,255)
+                plusIcon.TextColor3 = Color3.fromRGB(1,1,1)
                 plusIcon.TextSize = 20
                 plusIcon.BackgroundTransparency = 1
                 plusIcon.Size = UDim2.new(1,0,1,0)
                 plusIcon.Position = UDim2.new(0,0,0,0)
-                plusIcon.ZIndex = 12
+                plusIcon.ZIndex = 11
                 plusIcon.Parent = minimizeBtn
             end
         else
