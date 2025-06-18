@@ -134,11 +134,8 @@ local function showZeoHubLoadingScreen(callback)
     end
 end
 
--- SHOW LOADING SCREEN FIRST, THEN GUI
 showZeoHubLoadingScreen(function()
-    -- Add "Visual Scripts" to tabNames:
     local tabNames = {"Main", "Free Access (No Key)", "Key Access", "Visual Scripts", "Credit"}
-
     local scriptLists = {
         ["Free Access (No Key)"] = {
             {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/BlackHub.lua"},
@@ -161,55 +158,34 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-
-    -- Main Window with smooth rounded corners
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
     window.Size = UDim2.new(0, 420, 0, 260)
     window.Position = UDim2.new(0.5, -210, 0.5, -130)
     window.BackgroundColor3 = Color3.fromRGB(35, 36, 40)
-    window.BackgroundTransparency = 0
     window.Active = true
     window.Draggable = false
-    window.BorderSizePixel = 0
     window.Parent = gui
+    Instance.new("UICorner", window).CornerRadius = UDim.new(0, 18)
 
-    local windowCorner = Instance.new("UICorner")
-    windowCorner.CornerRadius = UDim.new(0, 18)
-    windowCorner.Parent = window
-
-    
-    -- Bottom drag bar (visible, 2px thick, rounded)
-    local dragBar = Instance.new("Frame")
+    local dragBar = Instance.new("Frame", window)
     dragBar.Size = UDim2.new(1, -32, 0, 2)
     dragBar.Position = UDim2.new(0, 16, 1, -10)
     dragBar.BackgroundColor3 = Color3.fromRGB(60, 120, 220)
-    dragBar.BorderSizePixel = 0
     dragBar.ZIndex = 2
-    dragBar.Parent = window
-    
-    local dragBarCorner = Instance.new("UICorner")
-    dragBarCorner.CornerRadius = UDim.new(1, 1)
-    dragBarCorner.Parent = dragBar
-    
-    -- Invisible hitbox for dragging, thicker but fully transparent
-    local dragHitbox = Instance.new("TextButton")
+    Instance.new("UICorner", dragBar).CornerRadius = UDim.new(1, 1)
+
+    local dragHitbox = Instance.new("TextButton", window)
     dragHitbox.Size = UDim2.new(1, 0, 0, 20)
     dragHitbox.Position = UDim2.new(0, 0, 1, -20)
     dragHitbox.BackgroundTransparency = 1
-    dragHitbox.BorderSizePixel = 0
     dragHitbox.Text = ""
     dragHitbox.AutoButtonColor = false
     dragHitbox.Active = true
     dragHitbox.ZIndex = 3
-    dragHitbox.Parent = window
-    
-    -- Smooth drag logic (PC + Mobile)
+
     local UserInputService = game:GetService("UserInputService")
-    local dragging = false
-    local startPos, startWindowPos
-    local currentTouch = nil
-    
+    local dragging, startPos, startWindowPos, currentTouch = false, nil, nil, nil
     dragHitbox.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = true
@@ -228,7 +204,6 @@ showZeoHubLoadingScreen(function()
             end
         end)
     end)
-    
     UserInputService.InputChanged:Connect(function(input)
         if dragging then
             local cur
@@ -237,12 +212,8 @@ showZeoHubLoadingScreen(function()
             elseif input.UserInputType == Enum.UserInputType.Touch then
                 if currentTouch and input == currentTouch then
                     cur = input.Position
-                else
-                    return
-                end
-            else
-                return
-            end
+                else return end
+            else return end
             local delta = cur - startPos
             window.Position = UDim2.new(
                 startWindowPos.X.Scale, startWindowPos.X.Offset + delta.X,
@@ -338,7 +309,6 @@ showZeoHubLoadingScreen(function()
 
     local function renderMain()
         clearMain()
-        -- "Main" Title
         local mainTitle = Instance.new("TextLabel", mainArea)
         mainTitle.Text = "Main"
         mainTitle.Font = Enum.Font.GothamBold
@@ -349,7 +319,6 @@ showZeoHubLoadingScreen(function()
         mainTitle.Size = UDim2.new(1, -24, 0, 32)
         mainTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-        -- "Change Log:" Subtitle
         local changeLogLabel = Instance.new("TextLabel", mainArea)
         changeLogLabel.Text = "Change Log:"
         changeLogLabel.Font = Enum.Font.GothamBold
@@ -360,7 +329,6 @@ showZeoHubLoadingScreen(function()
         changeLogLabel.Size = UDim2.new(1, -24, 0, 24)
         changeLogLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-        -- Card list holder
         local cardList = Instance.new("Frame", mainArea)
         cardList.Position = UDim2.new(0, 12, 0, 70)
         cardList.Size = UDim2.new(1, -24, 0, 126)
@@ -369,7 +337,6 @@ showZeoHubLoadingScreen(function()
         cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
         cardLayout.Padding = UDim.new(0, 8)
 
-        -- Helper function for a card
         local function makeCard(title, subtitle, showArrow, onClick)
             local card = Instance.new("TextButton")
             card.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
@@ -415,7 +382,6 @@ showZeoHubLoadingScreen(function()
             return card
         end
 
-        -- Card 1: Discord Invite
         makeCard(
             "Tutorial Video",
             "tiktok.com/@jandelofficialacc",
@@ -424,23 +390,10 @@ showZeoHubLoadingScreen(function()
                 setclipboard("tiktok.com/@jandelofficialacc")
             end
         )
-
-        -- Card 2: Update Log
-        makeCard(
-            "Update Log",
-            "...",
-            false
-        )
-
-        -- Card 3: Current Server Version
-        makeCard(
-            "Current Server Version",
-            "1373",
-            false
-        )
+        makeCard("Update Log", "...", false)
+        makeCard("Current Server Version", "1373", false)
     end
 
-    -- FIXED: Use a ScrollingFrame for script lists
     local function renderScriptList(category)
         clearMain()
         local scripts = scriptLists[category] or {}
@@ -454,7 +407,6 @@ showZeoHubLoadingScreen(function()
         header.Size = UDim2.new(1, -24, 0, 32)
         header.Position = UDim2.new(0, 12, 0, 12)
 
-        -- USE SCROLLINGFRAME FOR OVERFLOW
         local listHolder = Instance.new("ScrollingFrame", mainArea)
         listHolder.BackgroundTransparency = 1
         listHolder.Size = UDim2.new(1, -24, 1, -60)
@@ -471,132 +423,114 @@ showZeoHubLoadingScreen(function()
         ll.SortOrder = Enum.SortOrder.LayoutOrder
         ll.Padding = UDim.new(0, 10)
 
-    -- To ensure only one dropdown open at a time:
-    local openDropdown = nil
-    local openButton = nil
+        local openDropdown, openButton = nil, nil
+        for _, script in ipairs(scripts) do
+            local dropdownBtn = Instance.new("TextButton")
+            dropdownBtn.Text = script.name .. "  ▼"
+            dropdownBtn.Font = Enum.Font.GothamSemibold
+            dropdownBtn.TextColor3 = Color3.new(1, 1, 1)
+            dropdownBtn.TextSize = 18
+            dropdownBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 65)
+            dropdownBtn.BackgroundTransparency = 0.06
+            dropdownBtn.Size = UDim2.new(1, 0, 0, 44)
+            dropdownBtn.AutoButtonColor = false
+            dropdownBtn.BorderSizePixel = 0
+            Instance.new("UICorner", dropdownBtn).CornerRadius = UDim.new(0, 7)
+            dropdownBtn.Parent = listHolder
 
-    for _, script in ipairs(scripts) do
-        -- Parent button (acts as dropdown toggle)
-        local dropdownBtn = Instance.new("TextButton")
-        dropdownBtn.Text = script.name .. "  ▼"
-        dropdownBtn.Font = Enum.Font.GothamSemibold
-        dropdownBtn.TextColor3 = Color3.new(1, 1, 1)
-        dropdownBtn.TextSize = 18
-        dropdownBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 65)
-        dropdownBtn.BackgroundTransparency = 0.06
-        dropdownBtn.Size = UDim2.new(1, 0, 0, 44)
-        dropdownBtn.AutoButtonColor = false
-        dropdownBtn.BorderSizePixel = 0
-        Instance.new("UICorner", dropdownBtn).CornerRadius = UDim.new(0, 7)
-        dropdownBtn.Parent = listHolder
+            local dropPanel = Instance.new("Frame")
+            dropPanel.Size = UDim2.new(1, 0, 0, 76)
+            dropPanel.BackgroundColor3 = Color3.fromRGB(40, 40, 48)
+            dropPanel.BackgroundTransparency = 1
+            dropPanel.BorderSizePixel = 0
+            dropPanel.Visible = false
+            Instance.new("UICorner", dropPanel).CornerRadius = UDim.new(0, 7)
+            dropPanel.Parent = listHolder
 
-        -- Dropdown panel (hidden by default)
-        local dropPanel = Instance.new("Frame")
-        dropPanel.Size = UDim2.new(1, 0, 0, 76)
-        dropPanel.BackgroundColor3 = Color3.fromRGB(40, 40, 48)
-        dropPanel.BackgroundTransparency = 1
-        dropPanel.BorderSizePixel = 0
-        dropPanel.Visible = false
-        Instance.new("UICorner", dropPanel).CornerRadius = UDim.new(0, 7)
-        dropPanel.Parent = listHolder
+            local dropLayout = Instance.new("UIListLayout", dropPanel)
+            dropLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            dropLayout.Padding = UDim.new(0, 6)
 
-        local dropLayout = Instance.new("UIListLayout", dropPanel)
-        dropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        dropLayout.Padding = UDim.new(0, 6)
+            local execBtn = Instance.new("TextButton")
+            execBtn.Text = "Execute Script"
+            execBtn.Font = Enum.Font.Gotham
+            execBtn.TextColor3 = Color3.new(1, 1, 1)
+            execBtn.TextSize = 16
+            execBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
+            execBtn.Size = UDim2.new(1, -18, 0, 32)
+            execBtn.AutoButtonColor = true
+            execBtn.BorderSizePixel = 0
+            Instance.new("UICorner", execBtn).CornerRadius = UDim.new(0, 6)
+            execBtn.Parent = dropPanel
 
-        -- 1. Execute Script button (top)
-        local execBtn = Instance.new("TextButton")
-        execBtn.Text = "Execute Script"
-        execBtn.Font = Enum.Font.Gotham
-        execBtn.TextColor3 = Color3.new(1, 1, 1)
-        execBtn.TextSize = 16
-        execBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-        execBtn.BackgroundTransparency = 0
-        execBtn.Size = UDim2.new(1, -18, 0, 32)
-        execBtn.AutoButtonColor = true
-        execBtn.BorderSizePixel = 0
-        Instance.new("UICorner", execBtn).CornerRadius = UDim.new(0, 6)
-        execBtn.Parent = dropPanel
-
-        -- 2. Copy Script button (bottom)
-        local copyBtn = Instance.new("TextButton")
-        copyBtn.Text = "Copy Script"
-        copyBtn.Font = Enum.Font.Gotham
-        copyBtn.TextColor3 = Color3.new(1, 1, 1)
-        copyBtn.TextSize = 16
-        copyBtn.BackgroundColor3 = Color3.fromRGB(139, 128, 0)
-        copyBtn.BackgroundTransparency = 0
-        copyBtn.Size = UDim2.new(1, -18, 0, 32)
-        copyBtn.AutoButtonColor = true
-        copyBtn.BorderSizePixel = 0
-        Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
-        copyBtn.Parent = dropPanel
-
-        -- Button logic connections
-        execBtn.MouseButton1Click:Connect(function()
-            local oldText = execBtn.Text
-            execBtn.Text = "Loading..."
-            execBtn.AutoButtonColor = false
-            execBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 60)
-            execBtn.Active = false
-            copyBtn.Active = false
-
-            local success, err = pcall(function()
-                local source = game:HttpGet(script.url)
-                loadstring(source)()
-            end)
-
-            if success then
-                execBtn.Text = "Executed!"
-                task.wait(1)
-                gui:Destroy()
-            else
-                execBtn.Text = "Error!"
-                print("Script execution error:", err)
-                task.wait(5)
-                execBtn.Text = oldText
-                execBtn.AutoButtonColor = true
-                execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
-                execBtn.Active = true
-                copyBtn.Active = true
-            end
-        end)
-
-        copyBtn.MouseButton1Click:Connect(function()
-            copyBtn.Text = "Copying..."
-            local ok, scriptSource = pcall(function()
-                return game:HttpGet(script.url)
-            end)
-            if ok then
-                setclipboard(scriptSource)
-                copyBtn.Text = "Copied!"
-            else
-                copyBtn.Text = "Error!"
-            end
-            task.wait(1)
+            local copyBtn = Instance.new("TextButton")
             copyBtn.Text = "Copy Script"
-        end)
+            copyBtn.Font = Enum.Font.Gotham
+            copyBtn.TextColor3 = Color3.new(1, 1, 1)
+            copyBtn.TextSize = 16
+            copyBtn.BackgroundColor3 = Color3.fromRGB(139, 128, 0)
+            copyBtn.Size = UDim2.new(1, -18, 0, 32)
+            copyBtn.AutoButtonColor = true
+            copyBtn.BorderSizePixel = 0
+            Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
+            copyBtn.Parent = dropPanel
 
-        -- Dropdown logic
-        local expanded = false
-        dropdownBtn.MouseButton1Click:Connect(function()
-            -- Close any other open dropdown
-            if openDropdown and openDropdown ~= dropPanel then
-                openDropdown.Visible = false
-                if openButton then
-                    openButton.Text = openButton.Text:gsub("▲", "▼")
+            execBtn.MouseButton1Click:Connect(function()
+                local oldText = execBtn.Text
+                execBtn.Text = "Loading..."
+                execBtn.AutoButtonColor = false
+                execBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 60)
+                execBtn.Active = false
+                copyBtn.Active = false
+                local success, err = pcall(function()
+                    local source = game:HttpGet(script.url)
+                    loadstring(source)()
+                end)
+                if success then
+                    execBtn.Text = "Executed!"
+                    task.wait(1)
+                    gui:Destroy()
+                else
+                    execBtn.Text = "Error!"
+                    print("Script execution error:", err)
+                    task.wait(5)
+                    execBtn.Text = oldText
+                    execBtn.AutoButtonColor = true
+                    execBtn.BackgroundColor3 = Color3.fromRGB(55, 65, 55)
+                    execBtn.Active = true
+                    copyBtn.Active = true
                 end
-            end
-            expanded = not expanded
-            dropPanel.Visible = expanded
-            dropdownBtn.Text = script.name .. (expanded and "  ▲" or "  ▼")
-
-            -- Track open dropdown
-            openDropdown = expanded and dropPanel or nil
-            openButton = expanded and dropdownBtn or nil
-        end)
+            end)
+            copyBtn.MouseButton1Click:Connect(function()
+                copyBtn.Text = "Copying..."
+                local ok, scriptSource = pcall(function()
+                    return game:HttpGet(script.url)
+                end)
+                if ok then
+                    setclipboard(scriptSource)
+                    copyBtn.Text = "Copied!"
+                else
+                    copyBtn.Text = "Error!"
+                end
+                task.wait(1)
+                copyBtn.Text = "Copy Script"
+            end)
+            local expanded = false
+            dropdownBtn.MouseButton1Click:Connect(function()
+                if openDropdown and openDropdown ~= dropPanel then
+                    openDropdown.Visible = false
+                    if openButton then
+                        openButton.Text = openButton.Text:gsub("▲", "▼")
+                    end
+                end
+                expanded = not expanded
+                dropPanel.Visible = expanded
+                dropdownBtn.Text = script.name .. (expanded and "  ▲" or "  ▼")
+                openDropdown = expanded and dropPanel or nil
+                openButton = expanded and dropdownBtn or nil
+            end)
+        end
     end
-end
 
     local function renderSettings()
         clearMain()
@@ -633,7 +567,6 @@ end
     end
     setActiveTab("Main")
 
-    -- Dragging logic (PC & mobile, works with custom topBar)
     do
         local dragging, dragInput, dragStart, startPos
         local userInput = game:GetService("UserInputService")
@@ -670,7 +603,6 @@ end
         end)
     end
 
-    -- Minimize/restore button
     local minimized = false
     local prevSize, prevPos = window.Size, window.Position
     local minimizeBtn = Instance.new("TextButton", topBar)
@@ -690,7 +622,6 @@ end
     minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
     minusIcon.Size = UDim2.new(0, 14, 0, 3)
     minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
-    minusIcon.BackgroundTransparency = 0
     minusIcon.BorderSizePixel = 0
     Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
 
@@ -704,7 +635,6 @@ end
             sidebar.Visible = false
             glass.Visible = false
             minusIcon.Visible = false
-            -- Add plus icon
             if not minimizeBtn:FindFirstChild("PlusIcon") then
                 local plusIcon = Instance.new("TextLabel")
                 plusIcon.Name = "PlusIcon"
@@ -741,18 +671,4 @@ end
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
         if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(128, 128, 128) end
     end)
-end)
-
-    local closeBtn = Instance.new("TextButton", topBar)
-    closeBtn.Text = "X"
-    closeBtn.Font = Enum.Font.GothamBold
-    closeBtn.TextColor3 = Color3.new(1, 1, 1)
-    closeBtn.TextSize = 18
-    closeBtn.BackgroundTransparency = 1
-    closeBtn.Position = UDim2.new(1, -65, 0, 0)
-    closeBtn.Size = UDim2.new(0, 38, 1, 0)
-    closeBtn.AutoButtonColor = false
-    closeBtn.MouseButton1Click:Connect(function() gui:Destroy() end)
-    closeBtn.MouseEnter:Connect(function() closeBtn.TextColor3 = Color3.fromRGB(255, 80, 80) end)
-    closeBtn.MouseLeave:Connect(function() closeBtn.TextColor3 = Color3.new(1, 1, 1) end)
 end)
