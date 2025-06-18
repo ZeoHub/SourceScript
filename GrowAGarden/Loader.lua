@@ -161,7 +161,7 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-    
+
     -- Main Window with smooth rounded corners
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
@@ -173,10 +173,11 @@ showZeoHubLoadingScreen(function()
     window.Draggable = false
     window.BorderSizePixel = 0
     window.Parent = gui
-    
+
     local windowCorner = Instance.new("UICorner")
     windowCorner.CornerRadius = UDim.new(0, 18)
     windowCorner.Parent = window
+
     
     -- Bottom drag bar (visible, 2px thick, rounded)
     local dragBar = Instance.new("Frame")
@@ -439,26 +440,36 @@ showZeoHubLoadingScreen(function()
         )
     end
 
-local function renderScriptList(category)
-    clearMain()
-    local scripts = scriptLists[category] or {}
+    -- FIXED: Use a ScrollingFrame for script lists
+    local function renderScriptList(category)
+        clearMain()
+        local scripts = scriptLists[category] or {}
 
-    local header = Instance.new("TextLabel", mainArea)
-    header.Text = category .. " Scripts"
-    header.Font = Enum.Font.GothamBold
-    header.TextColor3 = Color3.new(1, 1, 1)
-    header.TextSize = 20
-    header.BackgroundTransparency = 1
-    header.Size = UDim2.new(1, -24, 0, 32)
-    header.Position = UDim2.new(0, 12, 0, 12)
+        local header = Instance.new("TextLabel", mainArea)
+        header.Text = category .. " Scripts"
+        header.Font = Enum.Font.GothamBold
+        header.TextColor3 = Color3.new(1, 1, 1)
+        header.TextSize = 20
+        header.BackgroundTransparency = 1
+        header.Size = UDim2.new(1, -24, 0, 32)
+        header.Position = UDim2.new(0, 12, 0, 12)
 
-    local listHolder = Instance.new("Frame", mainArea)
-    listHolder.BackgroundTransparency = 1
-    listHolder.Size = UDim2.new(1, -24, 1, -60)
-    listHolder.Position = UDim2.new(0, 12, 0, 52)
-    local ll = Instance.new("UIListLayout", listHolder)
-    ll.SortOrder = Enum.SortOrder.LayoutOrder
-    ll.Padding = UDim.new(0, 10)
+        -- USE SCROLLINGFRAME FOR OVERFLOW
+        local listHolder = Instance.new("ScrollingFrame", mainArea)
+        listHolder.BackgroundTransparency = 1
+        listHolder.Size = UDim2.new(1, -24, 1, -60)
+        listHolder.Position = UDim2.new(0, 12, 0, 52)
+        listHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
+        listHolder.ScrollBarThickness = 6
+        listHolder.BorderSizePixel = 0
+        listHolder.ScrollBarImageColor3 = Color3.fromRGB(60, 120, 220)
+        listHolder.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        listHolder.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+        listHolder.ClipsDescendants = true
+
+        local ll = Instance.new("UIListLayout", listHolder)
+        ll.SortOrder = Enum.SortOrder.LayoutOrder
+        ll.Padding = UDim.new(0, 10)
 
     -- To ensure only one dropdown open at a time:
     local openDropdown = nil
@@ -682,6 +693,7 @@ end
     minusIcon.BackgroundTransparency = 0
     minusIcon.BorderSizePixel = 0
     Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
+
     minimizeBtn.MouseButton1Click:Connect(function()
         minimized = not minimized
         if minimized then
@@ -692,6 +704,7 @@ end
             sidebar.Visible = false
             glass.Visible = false
             minusIcon.Visible = false
+            -- Add plus icon
             if not minimizeBtn:FindFirstChild("PlusIcon") then
                 local plusIcon = Instance.new("TextLabel")
                 plusIcon.Name = "PlusIcon"
@@ -715,6 +728,7 @@ end
             if plusIcon then plusIcon:Destroy() end
         end
     end)
+
     minimizeBtn.MouseEnter:Connect(function()
         minStroke.Color = Color3.fromRGB(255, 235, 160)
         minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
@@ -727,6 +741,7 @@ end
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
         if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(128, 128, 128) end
     end)
+end)
 
     local closeBtn = Instance.new("TextButton", topBar)
     closeBtn.Text = "X"
