@@ -129,14 +129,25 @@ showZeoHubLoadingScreen(function()
             {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/BlackHub.lua"},
             {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub"},
             {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub"},
+            {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub1"},
+            {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub2"},
+            {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub3"},
+            {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub4"},
         },
         ["Key Access"] = {
             {name = "KeyedHub", url = "https://pastebin.com/raw/KeyedHub"},
             {name = "SecretHub", url = "https://pastebin.com/raw/SecretHub"},
+            {name = "LockHub", url = "https://pastebin.com/raw/LockHub"},
+            {name = "GitHub", url = "https://pastebin.com/raw/GitHub"},
+            {name = "WallHackHub", url = "https://pastebin.com/raw/WalHackHub"},
+            {name = "GalaxyHub", url = "https://pastebin.com/raw/GalaxyHub"},
         },
         ["Visual Scripts"] = {
             {name = "Visual Hub 1", url = "https://pastebin.com/raw/VisualHub1"},
             {name = "Visual Hub 2", url = "https://pastebin.com/raw/VisualHub2"},
+            {name = "Visual Hub 1", url = "https://pastebin.com/raw/VisualHub4"},
+            {name = "Visual Hub 2", url = "https://pastebin.com/raw/VisualHub5"},
+            {name = "Visual Hub 2", url = "https://pastebin.com/raw/VisualHub6"},
         }
     }
 
@@ -162,6 +173,7 @@ showZeoHubLoadingScreen(function()
     dragBar.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
     dragBar.ZIndex = 2
     Instance.new("UICorner", dragBar).CornerRadius = UDim.new(1, 1)
+
     local dragHitbox = Instance.new("TextButton", window)
     dragHitbox.Size = UDim2.new(1, 0, 0, 20)
     dragHitbox.Position = UDim2.new(0, 0, 1, -20)
@@ -223,7 +235,6 @@ showZeoHubLoadingScreen(function()
     topBar.BackgroundTransparency = 0.14
     topBar.Size = UDim2.new(1, 0, 0, 36)
     topBar.BorderSizePixel = 0
-    topBar.ZIndex = 10
     Instance.new("UICorner", topBar).CornerRadius = UDim.new(0, 14)
 
     local titleLabel = Instance.new("TextLabel", topBar)
@@ -235,16 +246,14 @@ showZeoHubLoadingScreen(function()
     titleLabel.AnchorPoint = Vector2.new(0, 0.5)
     titleLabel.Position = UDim2.new(0, 16, 0.5, 0)
     titleLabel.Size = UDim2.new(1, -32, 1, 0)
-    titleLabel.ZIndex = 11
 
-    -- Add CLOSE BUTTON (top right)
+    -- CLOSE BUTTON (top right)
     local closeBtn = Instance.new("TextButton", topBar)
     closeBtn.Name = "CloseButton"
     closeBtn.Size = UDim2.new(0, 28, 0, 28)
     closeBtn.Position = UDim2.new(1, -66, 0, 4)
-    closeBtn.AnchorPoint = Vector2.new(0,0)
     closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
-    closeBtn.Text = "X"
+    closeBtn.Text = ""
     closeBtn.Font = Enum.Font.GothamBold
     closeBtn.TextSize = 18
     closeBtn.TextColor3 = Color3.new(200, 65, 65)
@@ -261,8 +270,6 @@ showZeoHubLoadingScreen(function()
     closeBtn.MouseLeave:Connect(function()
         closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
     end)
-
-
 
     local sidebar = Instance.new("Frame", window)
     sidebar.Name = "Sidebar"
@@ -345,10 +352,16 @@ showZeoHubLoadingScreen(function()
         changeLogLabel.Size = UDim2.new(1, -24, 0, 24)
         changeLogLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-        local cardList = Instance.new("Frame", mainArea)
+        local cardList = Instance.new("ScrollingFrame", mainArea)
         cardList.Position = UDim2.new(0, 12, 0, 70)
-        cardList.Size = UDim2.new(1, -24, 0, 126)
+        cardList.Size = UDim2.new(1, -24, 1, -90) -- fill most of mainArea, adjust -90 as needed
         cardList.BackgroundTransparency = 1
+        cardList.BorderSizePixel = 0
+        cardList.CanvasSize = UDim2.new(0, 0, 0, 0)
+        cardList.ScrollBarThickness = 8
+        cardList.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        cardList.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+        cardList.ClipsDescendants = true
         local cardLayout = Instance.new("UIListLayout", cardList)
         cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
         cardLayout.Padding = UDim.new(0, 8)
@@ -406,7 +419,15 @@ showZeoHubLoadingScreen(function()
                 setclipboard("tiktok.com/@jandelofficialacc")
             end
         )
-        makeCard("Update Log", "...", false)
+                makeCard(
+            "Discord Server",
+            "TBA",
+            false,
+            function()
+                setclipboard("")
+            end
+        )
+        makeCard("Update Log", "Visual added.", false)
         makeCard("Current Server Version", "1373", false)
     end
 
@@ -619,71 +640,74 @@ showZeoHubLoadingScreen(function()
         end)
     end
 
-local minimized = false
-local prevSize, prevPos = window.Size, window.Position
-
--- Minimize Button (left of Close)
-local minimizeBtn = Instance.new("TextButton", topBar)
-minimizeBtn.Name = "MinimizeButton"
-minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
-minimizeBtn.Position = UDim2.new(1, -66, 0, 4) -- left of closeBtn at -34, with 4px gap
-minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-minimizeBtn.Text = "—"
-minimizeBtn.TextColor3 = Color3.new(1,1,1) -- White
-minimizeBtn.Font = Enum.Font.GothamBold
-minimizeBtn.TextSize = 22
-minimizeBtn.AutoButtonColor = true
-minimizeBtn.ZIndex = 12
-Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
-local minStroke = Instance.new("UIStroke", minimizeBtn)
-minStroke.Color = Color3.fromRGB(255, 255, 255)
-minStroke.Thickness = 1
-minStroke.Transparency = 0.13
-
--- Minimize logic
-minimizeBtn.MouseButton1Click:Connect(function()
-    minimized = not minimized
-    if minimized then
-        prevSize = window.Size
-        prevPos = window.Position
-        window.Size = UDim2.new(0, 300, 0, 36)
-        mainArea.Visible = false
-        sidebar.Visible = false
-        glass.Visible = false
-        minimizeBtn.Text = "" -- Hide the minus text
-        if not minimizeBtn:FindFirstChild("PlusIcon") then
-            local plusIcon = Instance.new("TextLabel")
-            plusIcon.Name = "PlusIcon"
-            plusIcon.Text = "+"
-            plusIcon.Font = Enum.Font.GothamBold
-            plusIcon.TextColor3 = Color3.new(1, 1, 1)
-            plusIcon.TextSize = 20
-            plusIcon.BackgroundTransparency = 1
-            plusIcon.Size = UDim2.new(1,0,1,0)
-            plusIcon.Position = UDim2.new(0,0,0,0)
-            plusIcon.ZIndex = 14
-            plusIcon.Parent = minimizeBtn
-        end
-    else
-        window.Size = prevSize
-        window.Position = prevPos
-        mainArea.Visible = true
-        sidebar.Visible = true
-        glass.Visible = true
-        minimizeBtn.Text = "—" -- Restore minus text
-        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-        if plusIcon then plusIcon:Destroy() end
-    end
-end)
-
--- Hover effects
-minimizeBtn.MouseEnter:Connect(function()
-    minStroke.Color = Color3.fromRGB(255, 255, 255)
-    local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end
-end)
-minimizeBtn.MouseLeave:Connect(function()
+    local minimized = false
+    local prevSize, prevPos = window.Size, window.Position
+    local minimizeBtn = Instance.new("TextButton", topBar)
+    minimizeBtn.Name = "MinimizeButton"
+    minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
+    minimizeBtn.Position = UDim2.new(1, -34, 0, 7)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0) -- Green
+    minimizeBtn.Text = ""
+    minimizeBtn.AutoButtonColor = true
+    minimizeBtn.ZIndex = 11
+    Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
+    local minStroke = Instance.new("UIStroke", minimizeBtn)
     minStroke.Color = Color3.fromRGB(255, 220, 120)
-    local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end
+    minStroke.Thickness = 1
+    minStroke.Transparency = 0.13
+    local minusIcon = Instance.new("Frame", minimizeBtn)
+    minusIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+    minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+    minusIcon.Size = UDim2.new(0, 14, 0, 3)
+    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
+    minusIcon.BorderSizePixel = 0
+    Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
+
+    minimizeBtn.MouseButton1Click:Connect(function()
+        minimized = not minimized
+        if minimized then
+            prevSize = window.Size
+            prevPos = window.Position
+            window.Size = UDim2.new(0, 300, 0, 36)
+            mainArea.Visible = false
+            sidebar.Visible = false
+            glass.Visible = false
+            minusIcon.Visible = false
+            if not minimizeBtn:FindFirstChild("PlusIcon") then
+                local plusIcon = Instance.new("TextLabel")
+                plusIcon.Name = "PlusIcon"
+                plusIcon.Text = "+"
+                plusIcon.Font = Enum.Font.GothamBold
+                plusIcon.TextColor3 = Color3.fromRGB(255,230,150)
+                plusIcon.TextSize = 20
+                plusIcon.BackgroundTransparency = 1
+                plusIcon.Size = UDim2.new(1,0,1,0)
+                plusIcon.Position = UDim2.new(0,0,0,0)
+                plusIcon.ZIndex = 12
+                plusIcon.Parent = minimizeBtn
+            end
+        else
+            window.Size = prevSize
+            window.Position = prevPos
+            mainArea.Visible = true
+            sidebar.Visible = true
+            glass.Visible = true
+            minusIcon.Visible = true
+            local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+            if plusIcon then plusIcon:Destroy() end
+        end
+    end)
+
+    minimizeBtn.MouseEnter:Connect(function()
+        minStroke.Color = Color3.fromRGB(255, 235, 160)
+        minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
+        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(255, 255, 255) end
+    end)
+    minimizeBtn.MouseLeave:Connect(function()
+        minStroke.Color = Color3.fromRGB(255, 220, 120)
+        minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
+        local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
+        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(128, 128, 128) end
+    end)
 end)
