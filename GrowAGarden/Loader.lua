@@ -164,12 +164,15 @@ showZeoHubLoadingScreen(function()
         -- Main Window
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.Size = UDim2.new(0, 400, 0, 250)
-    window.Position = UDim2.new(0.5, -200, 0.5, -125)
+    window.Size = UDim2.new(0, 550, 0, 290)
+    window.Position = UDim2.new(0.5, -275, 0.4, -170)
     window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    window.BackgroundTransparency = 0.18
     window.Active = true
     window.Draggable = false
+    window.BorderSizePixel = 0
     window.Parent = gui
+    Instance.new("UICorner", window).CornerRadius = UDim.new(0, 14)
     
     -- Bottom Drag Bar (2 pixels thick)
     local dragBar = Instance.new("Frame")
