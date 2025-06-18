@@ -164,8 +164,7 @@ showZeoHubLoadingScreen(function()
     -- Main Container
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.AnchorPoint = Vector2.new(0.5, 0.5) -- Centering the frame
-    window.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center of parent
+    window.Size = UDim2.new(0, 550, 0, 290)
     window.Position = UDim2.new(0.5, -275, 0.4, -170)
     window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     window.BackgroundTransparency = 0.18
@@ -174,6 +173,57 @@ showZeoHubLoadingScreen(function()
     window.BorderSizePixel = 0
     window.Parent = gui
     Instance.new("UICorner", window).CornerRadius = UDim.new(0, 14)
+
+    -- Bottom Drag Line (acts as handle for moving)
+    local dragLine = Instance.new("Frame")
+    dragLine.Name = "BottomDragLine"
+    dragLine.Size = UDim2.new(1, 0, 0, 10)
+    dragLine.Position = UDim2.new(0, 0, 1, -10)
+    dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    dragLine.BorderSizePixel = 0
+    dragLine.Parent = window
+    Instance.new("UICorner", dragLine).CornerRadius = UDim.new(0, 5)
+
+    -- Optional grip visual
+    local grip = Instance.new("Frame")
+    grip.Size = UDim2.new(0.2, 0, 0.4, 0)
+    grip.Position = UDim2.new(0.4, 0, 0.3, 0)
+    grip.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    grip.BorderSizePixel = 0
+    grip.Parent = dragLine
+    Instance.new("UICorner", grip).CornerRadius = UDim.new(1, 0)
+
+    -- DRAG TO MOVE LOGIC
+    local dragging = false
+    local dragInput, mouseStart, windowStart
+
+    dragLine.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragInput = input
+            mouseStart = Vector2.new(input.Position.X, input.Position.Y)
+            windowStart = window.Position
+            dragLine.BackgroundColor3 = Color3.fromRGB(130, 130, 130) -- highlight while dragging
+        end
+    end)
+
+    dragLine.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+            dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        end
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = Vector2.new(input.Position.X, input.Position.Y) - mouseStart
+            window.Position = UDim2.new(
+                windowStart.X.Scale, windowStart.X.Offset + delta.X,
+                windowStart.Y.Scale, windowStart.Y.Offset + delta.Y
+            )
+        end
+    end)
+
 
     local glass = Instance.new("ImageLabel", window)
     glass.BackgroundTransparency = 1
