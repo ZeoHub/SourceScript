@@ -621,13 +621,15 @@ showZeoHubLoadingScreen(function()
 
 local minimized = false
 local prevSize, prevPos = window.Size, window.Position
+
+-- Minimize Button (left of Close)
 local minimizeBtn = Instance.new("TextButton", topBar)
 minimizeBtn.Name = "MinimizeButton"
 minimizeBtn.Size = UDim2.new(0, 28, 0, 28)
-minimizeBtn.Position = UDim2.new(1, -66, 0, 7) -- (adjust for spacing if you have a close button)
+minimizeBtn.Position = UDim2.new(1, -66, 0, 4) -- left of closeBtn at -34, with 4px gap
 minimizeBtn.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
 minimizeBtn.Text = "—"
-minimizeBtn.TextColor3 = Color3.new(1,1,1) -- Set text color to white
+minimizeBtn.TextColor3 = Color3.new(1,1,1) -- White
 minimizeBtn.Font = Enum.Font.GothamBold
 minimizeBtn.TextSize = 22
 minimizeBtn.AutoButtonColor = true
@@ -637,15 +639,8 @@ local minStroke = Instance.new("UIStroke", minimizeBtn)
 minStroke.Color = Color3.fromRGB(255, 255, 255)
 minStroke.Thickness = 1
 minStroke.Transparency = 0.13
-local minusIcon = Instance.new("Frame", minimizeBtn)
-minusIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-minusIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-minusIcon.Size = UDim2.new(0, 14, 0, 3)
-minusIcon.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-minusIcon.BorderSizePixel = 0
-minusIcon.ZIndex = 13
-Instance.new("UICorner", minusIcon).CornerRadius = UDim.new(1, 0)
 
+-- Minimize logic
 minimizeBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
@@ -655,13 +650,13 @@ minimizeBtn.MouseButton1Click:Connect(function()
         mainArea.Visible = false
         sidebar.Visible = false
         glass.Visible = false
-        minusIcon.Visible = false
+        minimizeBtn.Text = "" -- Hide the minus text
         if not minimizeBtn:FindFirstChild("PlusIcon") then
             local plusIcon = Instance.new("TextLabel")
             plusIcon.Name = "PlusIcon"
             plusIcon.Text = "+"
             plusIcon.Font = Enum.Font.GothamBold
-            plusIcon.TextColor3 = Color3.new(1, 1, 1) -- White!
+            plusIcon.TextColor3 = Color3.new(1, 1, 1)
             plusIcon.TextSize = 20
             plusIcon.BackgroundTransparency = 1
             plusIcon.Size = UDim2.new(1,0,1,0)
@@ -675,21 +670,20 @@ minimizeBtn.MouseButton1Click:Connect(function()
         mainArea.Visible = true
         sidebar.Visible = true
         glass.Visible = true
-        minusIcon.Visible = true
+        minimizeBtn.Text = "—" -- Restore minus text
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
         if plusIcon then plusIcon:Destroy() end
     end
 end)
 
+-- Hover effects
 minimizeBtn.MouseEnter:Connect(function()
     minStroke.Color = Color3.fromRGB(255, 255, 255)
-    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
     local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end -- White!
+    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end
 end)
 minimizeBtn.MouseLeave:Connect(function()
     minStroke.Color = Color3.fromRGB(255, 220, 120)
-    minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
     local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end -- White!
+    if plusIcon then plusIcon.TextColor3 = Color3.new(1, 1, 1) end
 end)
