@@ -161,34 +161,43 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-        -- Main Window
+    -- Main Window
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.Size = UDim2.new(0, 550, 0, 290)
-    window.Position = UDim2.new(0.5, -275, 0.4, -170)
+    window.Size = UDim2.new(0, 400, 0, 250)
+    window.Position = UDim2.new(0.5, -200, 0.5, -125)
     window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    window.BackgroundTransparency = 0.18
     window.Active = true
     window.Draggable = false
-    window.BorderSizePixel = 0
-    window.Parent = gui
-    Instance.new("UICorner", window).CornerRadius = UDim.new(0, 14)
+    window.Parent = game.CoreGui:FindFirstChildOfClass("ScreenGui") or Instance.new("ScreenGui", game.CoreGui)
     
-    -- Bottom Drag Bar (2 pixels thick)
+    -- Visible, thin drag bar (2px)
     local dragBar = Instance.new("Frame")
-    dragBar.Name = "DragBar"
-    dragBar.Size = UDim2.new(1, 0, 0, 10)
+    dragBar.Size = UDim2.new(1, 0, 0, 2)
     dragBar.Position = UDim2.new(0, 0, 1, -2)
     dragBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    dragBar.Active = true
+    dragBar.BorderSizePixel = 0
     dragBar.Parent = window
     
+    -- Invisible hitbox for easy dragging (e.g., 1x16)
+    local dragHitbox = Instance.new("TextButton")
+    dragHitbox.Size = UDim2.new(1, 0, 0, 16)
+    dragHitbox.Position = UDim2.new(0, 0, 1, -16)
+    dragHitbox.BackgroundTransparency = 1 -- fully invisible
+    dragHitbox.BorderSizePixel = 0
+    dragHitbox.Text = ""
+    dragHitbox.AutoButtonColor = false
+    dragHitbox.Active = true
+    dragHitbox.ZIndex = dragBar.ZIndex + 1
+    dragHitbox.Parent = window
+    
+    -- Drag logic (PC + Mobile)
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
     local startPos, startWindowPos
     local currentTouch = nil
     
-    dragBar.InputBegan:Connect(function(input)
+    dragHitbox.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = true
             startPos = UserInputService:GetMouseLocation()
