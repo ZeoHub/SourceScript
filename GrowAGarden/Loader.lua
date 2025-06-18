@@ -629,7 +629,7 @@ showZeoHubLoadingScreen(function()
                 plusIcon.Name = "PlusIcon"
                 plusIcon.Text = "+"
                 plusIcon.Font = Enum.Font.GothamBold
-                plusIcon.TextColor3 = Color3.fromRGB(255,230,150)
+                plusIcon.TextColor3 = Color3.fromRGB(255,255,255)
                 plusIcon.TextSize = 20
                 plusIcon.BackgroundTransparency = 1
                 plusIcon.Size = UDim2.new(1,0,1,0)
