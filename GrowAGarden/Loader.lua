@@ -164,7 +164,8 @@ showZeoHubLoadingScreen(function()
     -- Main Container
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.Size = UDim2.new(0, 550, 0, 290)
+    window.AnchorPoint = Vector2.new(0.5, 0.5) -- Centering the frame
+    window.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center of parent
     window.Position = UDim2.new(0.5, -275, 0.4, -170)
     window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     window.BackgroundTransparency = 0.18
