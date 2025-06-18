@@ -245,7 +245,7 @@ showZeoHubLoadingScreen(function()
     closeBtn.Position = UDim2.new(1, -66, 0, 4)
     closeBtn.AnchorPoint = Vector2.new(0,0)
     closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
-    closeBtn.Text = "✕"
+    closeBtn.Text = "X"
     closeBtn.Font = Enum.Font.GothamBold
     closeBtn.TextSize = 18
     closeBtn.TextColor3 = Color3.new(1,1,1)
@@ -663,7 +663,7 @@ showZeoHubLoadingScreen(function()
                 plusIcon.BackgroundTransparency = 1
                 plusIcon.Size = UDim2.new(1,0,1,0)
                 plusIcon.Position = UDim2.new(0,0,0,0)
-                plusIcon.ZIndex = 11
+                plusIcon.ZIndex = 12
                 plusIcon.Parent = minimizeBtn
             end
         else
