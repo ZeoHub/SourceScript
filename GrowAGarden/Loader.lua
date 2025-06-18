@@ -207,25 +207,6 @@ showZeoHubLoadingScreen(function()
     dragHitbox.ZIndex = 3
     dragHitbox.Parent = window
 
-    -- Example Close Button (top right)
-    local closeButton = Instance.new("TextButton")
-    closeButton.Size = UDim2.new(0, 28, 0, 28)
-    closeButton.Position = UDim2.new(1, -36, 0, 8)
-    closeButton.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
-    closeButton.Text = "✕"
-    closeButton.Font = Enum.Font.GothamBold
-    closeButton.TextSize = 18
-    closeButton.TextColor3 = Color3.new(1, 1, 1)
-    closeButton.ZIndex = 10
-    closeButton.Parent = window
-    local closeCorner = Instance.new("UICorner")
-    closeCorner.CornerRadius = UDim.new(0, 12)
-    closeCorner.Parent = closeButton
-
-    closeButton.MouseButton1Click:Connect(function()
-        gui:Destroy()
-    end)
-
     -- Smooth drag logic (PC + Mobile)
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
