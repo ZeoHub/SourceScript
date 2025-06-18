@@ -6,7 +6,7 @@ local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
--- ZeoHub-style loading screen function (BLACK/WHITE SLEEK)
+-- ZeoHub-style loading screen
 local function showZeoHubLoadingScreen(callback)
     local guiLoading = Instance.new("ScreenGui")
     guiLoading.Name = "SourceScripts"
@@ -14,25 +14,16 @@ local function showZeoHubLoadingScreen(callback)
     guiLoading.ResetOnSpawn = false
     guiLoading.IgnoreGuiInset = true
 
-    -- Colors for sleek black/white
-    local BG_COLOR      = Color3.fromRGB(15, 15, 18)    -- dark background
-    local PANEL_COLOR   = Color3.fromRGB(26, 26, 30)    -- main panel
-    local ACCENT        = Color3.fromRGB(235, 235, 240) -- bright white accent
-    local PROGRESS_BG   = Color3.fromRGB(40, 40, 42)
-    local PROGRESS_FILL = Color3.fromRGB(235, 235, 240)
-    local TEXT_COLOR    = Color3.fromRGB(245, 245, 245)
-    local SUB_TEXT      = Color3.fromRGB(120, 120, 120)
-
     local bg = Instance.new("Frame", guiLoading)
     bg.Size = UDim2.new(1, 0, 1, 0)
     bg.Position = UDim2.new(0, 0, 0, 0)
-    bg.BackgroundColor3 = BG_COLOR
+    bg.BackgroundColor3 = Color3.fromRGB(15, 15, 18)
     bg.BackgroundTransparency = 1
 
     local main = Instance.new("Frame", bg)
     main.Size = UDim2.new(0, 410, 0, 170)
     main.Position = UDim2.new(0.5, -205, 0.5, -85+40)
-    main.BackgroundColor3 = PANEL_COLOR
+    main.BackgroundColor3 = Color3.fromRGB(26, 26, 30)
     main.BorderSizePixel = 0
     main.BackgroundTransparency = 1
     Instance.new("UICorner", main).CornerRadius = UDim.new(0, 22)
@@ -53,14 +44,14 @@ local function showZeoHubLoadingScreen(callback)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.Font = Enum.Font.GothamBold
     title.TextSize = 28
-    title.TextColor3 = ACCENT
+    title.TextColor3 = Color3.fromRGB(235, 235, 240)
     title.TextStrokeTransparency = 0.85
     title.TextTransparency = 1
 
     local barBack = Instance.new("Frame", main)
     barBack.Size = UDim2.new(0.87, 0, 0, 32)
     barBack.Position = UDim2.new(0.065, 0, 0, 80)
-    barBack.BackgroundColor3 = PROGRESS_BG
+    barBack.BackgroundColor3 = Color3.fromRGB(40, 40, 42)
     barBack.BorderSizePixel = 0
     Instance.new("UICorner", barBack).CornerRadius = UDim.new(0, 15)
     barBack.BackgroundTransparency = 1
@@ -68,7 +59,7 @@ local function showZeoHubLoadingScreen(callback)
     local bar = Instance.new("Frame", barBack)
     bar.Size = UDim2.new(0, 0, 1, 0)
     bar.Position = UDim2.new(0, 0, 0, 0)
-    bar.BackgroundColor3 = PROGRESS_FILL
+    bar.BackgroundColor3 = Color3.fromRGB(235, 235, 240)
     bar.BorderSizePixel = 0
     Instance.new("UICorner", bar).CornerRadius = UDim.new(0, 15)
     bar.BackgroundTransparency = 1
@@ -80,7 +71,7 @@ local function showZeoHubLoadingScreen(callback)
     loadingText.Text = "Loading..."
     loadingText.Font = Enum.Font.GothamBold
     loadingText.TextSize = 18
-    loadingText.TextColor3 = TEXT_COLOR
+    loadingText.TextColor3 = Color3.fromRGB(245, 245, 245)
     loadingText.TextStrokeTransparency = 0.8
     loadingText.TextXAlignment = Enum.TextXAlignment.Left
     loadingText.TextTransparency = 1
@@ -93,11 +84,10 @@ local function showZeoHubLoadingScreen(callback)
     subText.TextXAlignment = Enum.TextXAlignment.Left
     subText.Font = Enum.Font.GothamBold
     subText.TextSize = 16
-    subText.TextColor3 = SUB_TEXT
+    subText.TextColor3 = Color3.fromRGB(120, 120, 120)
     subText.TextStrokeTransparency = 0.88
     subText.TextTransparency = 1
 
-    -- ENTRANCE ANIMATION
     TweenService:Create(bg, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.18}):Play()
     TweenService:Create(main, TweenInfo.new(0.45, Enum.EasingStyle.Quad), {BackgroundTransparency = 0, Position = UDim2.new(0.5, -205, 0.5, -85)}):Play()
     TweenService:Create(icon, TweenInfo.new(0.32, Enum.EasingStyle.Quad), {ImageTransparency = 0}):Play()
@@ -108,7 +98,6 @@ local function showZeoHubLoadingScreen(callback)
     TweenService:Create(subText, TweenInfo.new(0.28, Enum.EasingStyle.Quad), {TextTransparency = 0}):Play()
     task.wait(0.52)
 
-    -- Animate progress bar over 2 seconds (sleek)
     local duration = 2
     local steps = 90
     for i = 1, steps do
@@ -117,7 +106,6 @@ local function showZeoHubLoadingScreen(callback)
     end
     bar.Size = UDim2.new(0.98, 0, 1, 0)
 
-    -- EXIT ANIMATION
     TweenService:Create(bg, TweenInfo.new(0.38, Enum.EasingStyle.Quad), {BackgroundTransparency = 1}):Play()
     TweenService:Create(main, TweenInfo.new(0.42, Enum.EasingStyle.Quad), {BackgroundTransparency = 1, Position = UDim2.new(0.5, -205, 0.5, -85-40)}):Play()
     TweenService:Create(icon, TweenInfo.new(0.32, Enum.EasingStyle.Quad), {ImageTransparency = 1}):Play()
@@ -156,7 +144,7 @@ showZeoHubLoadingScreen(function()
     gui.Name = "SourceScriptLoader"
     gui.ResetOnSpawn = false
     gui.IgnoreGuiInset = true
-    gui.Parent = game:GetService("CoreGui")
+    gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
