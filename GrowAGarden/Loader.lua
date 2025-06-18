@@ -678,7 +678,7 @@ showZeoHubLoadingScreen(function()
     end)
 
     minimizeBtn.MouseEnter:Connect(function()
-        minStroke.Color = Color3.fromRGB(255, 235, 160)
+        minStroke.Color = Color3.fromRGB(255, 255, 255)
         minusIcon.BackgroundColor3 = Color3.fromRGB(255, 235, 160)
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
         if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(1, 1, 1) end
@@ -687,6 +687,6 @@ showZeoHubLoadingScreen(function()
         minStroke.Color = Color3.fromRGB(255, 220, 120)
         minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(0, 128, 0) end
+        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(255, 255, 255) end
     end)
 end)
