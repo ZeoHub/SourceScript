@@ -174,7 +174,7 @@ showZeoHubLoadingScreen(function()
     -- Bottom Drag Bar
     local dragBar = Instance.new("Frame")
     dragBar.Name = "DragBar"
-    dragBar.Size = UDim2.new(1, 0, 0, 16)
+    dragBar.Size = UDim2.new(2, 0, 0, 16)
     dragBar.Position = UDim2.new(0, 0, 1, -16)
     dragBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     dragBar.Active = true
