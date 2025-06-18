@@ -242,10 +242,10 @@ showZeoHubLoadingScreen(function()
     local closeBtn = Instance.new("TextButton", topBar)
     closeBtn.Name = "CloseButton"
     closeBtn.Size = UDim2.new(0, 28, 0, 28)
-    closeBtn.Position = UDim2.new(1, -68, 3, 4)
+    closeBtn.Position = UDim2.new(1, -34, 0, 4)
     closeBtn.AnchorPoint = Vector2.new(0,0)
     closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
-    closeBtn.Text = "X"
+    closeBtn.Text = "✕"
     closeBtn.Font = Enum.Font.GothamBold
     closeBtn.TextSize = 18
     closeBtn.TextColor3 = Color3.new(1,1,1)
@@ -262,6 +262,7 @@ showZeoHubLoadingScreen(function()
     closeBtn.MouseLeave:Connect(function()
         closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
     end)
+
 
 
     local sidebar = Instance.new("Frame", window)
