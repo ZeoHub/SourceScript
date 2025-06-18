@@ -170,7 +170,7 @@ showZeoHubLoadingScreen(function()
     dragHitbox.Text = ""
     dragHitbox.AutoButtonColor = false
     dragHitbox.Active = true
-    dragHitbox.ZIndex = 3
+    dragHitbox.ZIndex = 2
 
     local UserInputService = game:GetService("UserInputService")
     local dragging, startPos, startWindowPos, currentTouch = false, nil, nil, nil
@@ -600,6 +600,7 @@ showZeoHubLoadingScreen(function()
     minimizeBtn.BackgroundColor3 = Color3.fromRGB(1, 1, 1)
     minimizeBtn.Text = ""
     minimizeBtn.AutoButtonColor = true
+    minimizeBtn.ZIndex = 10
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
     local minStroke = Instance.new("UIStroke", minimizeBtn)
     minStroke.Color = Color3.fromRGB(255, 220, 120)
@@ -633,6 +634,7 @@ showZeoHubLoadingScreen(function()
                 plusIcon.BackgroundTransparency = 1
                 plusIcon.Size = UDim2.new(1,0,1,0)
                 plusIcon.Position = UDim2.new(0,0,0,0)
+                plusIcon.ZIndex = 12
                 plusIcon.Parent = minimizeBtn
             end
         else
