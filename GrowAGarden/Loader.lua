@@ -242,7 +242,7 @@ showZeoHubLoadingScreen(function()
     local closeBtn = Instance.new("TextButton", topBar)
     closeBtn.Name = "CloseButton"
     closeBtn.Size = UDim2.new(0, 28, 0, 28)
-    closeBtn.Position = UDim2.new(1, -34, 0, 4)
+    closeBtn.Position = UDim2.new(1, -66, 0, 4)
     closeBtn.AnchorPoint = Vector2.new(0,0)
     closeBtn.BackgroundColor3 = Color3.fromRGB(200, 65, 65)
     closeBtn.Text = "✕"
