@@ -417,28 +417,6 @@ local function renderScriptList(category)
         dropLayout.SortOrder = Enum.SortOrder.LayoutOrder
         dropLayout.Padding = UDim.new(0, 6)
 
-        -- Copy Script button
-        local copyBtn = Instance.new("TextButton", dropPanel)
-        copyBtn.Text = "Copy Script"
-        copyBtn.Font = Enum.Font.Gotham
-        copyBtn.TextColor3 = Color3.new(1, 1, 1)
-        copyBtn.TextSize = 16
-        copyBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
-        copyBtn.BackgroundTransparency = 0
-        copyBtn.Size = UDim2.new(1, -18, 0, 32)
-        copyBtn.Position = UDim2.new(0, 9, 0, 6)
-        copyBtn.AutoButtonColor = true
-        copyBtn.BorderSizePixel = 0
-        Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
-        copyBtn.MouseButton1Click:Connect(function()
-            copyBtn.Text = "Copying..."
-            local scriptSource = game:HttpGet(script.url)
-            setclipboard(scriptSource)
-            copyBtn.Text = "Copied!"
-            task.wait(1)
-            copyBtn.Text = "Copy Script"
-        end)
-
         -- Execute Script button
         local execBtn = Instance.new("TextButton", dropPanel)
         execBtn.Text = "Execute Script"
@@ -480,6 +458,28 @@ local function renderScriptList(category)
                 execBtn.Active = true
                 copyBtn.Active = true
             end
+        end)
+
+                -- Copy Script button
+        local copyBtn = Instance.new("TextButton", dropPanel)
+        copyBtn.Text = "Copy Script"
+        copyBtn.Font = Enum.Font.Gotham
+        copyBtn.TextColor3 = Color3.new(1, 1, 1)
+        copyBtn.TextSize = 16
+        copyBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+        copyBtn.BackgroundTransparency = 0
+        copyBtn.Size = UDim2.new(1, -18, 0, 32)
+        copyBtn.Position = UDim2.new(0, 9, 0, 6)
+        copyBtn.AutoButtonColor = true
+        copyBtn.BorderSizePixel = 0
+        Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
+        copyBtn.MouseButton1Click:Connect(function()
+            copyBtn.Text = "Copying..."
+            local scriptSource = game:HttpGet(script.url)
+            setclipboard(scriptSource)
+            copyBtn.Text = "Copied!"
+            task.wait(1)
+            copyBtn.Text = "Copy Script"
         end)
 
 
