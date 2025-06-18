@@ -161,73 +161,67 @@ showZeoHubLoadingScreen(function()
     gui.IgnoreGuiInset = true
     gui.Parent = game:GetService("CoreGui")
 
-    -- Main Container
+    -- Main Window
     local window = Instance.new("Frame")
     window.Name = "FloatingWindow"
-    window.Size = UDim2.new(0, 550, 0, 290)
-    window.Position = UDim2.new(0.5, -275, 0.4, -170)
+    window.Size = UDim2.new(0, 400, 0, 250)
+    window.Position = UDim2.new(0.5, -200, 0.5, -125)
     window.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    window.BackgroundTransparency = 0.18
     window.Active = true
     window.Draggable = false
-    window.BorderSizePixel = 0
     window.Parent = gui
-    Instance.new("UICorner", window).CornerRadius = UDim.new(0, 14)
     
-    -- Bottom Drag Line (acts as handle for moving)
-    local dragLine = Instance.new("Frame")
-    dragLine.Name = "BottomDragLine"
-    dragLine.Size = UDim2.new(1, 0, 0, 10)
-    dragLine.Position = UDim2.new(0, 0, 1, -10)
-    dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    dragLine.BorderSizePixel = 0
-    dragLine.Parent = window
-    Instance.new("UICorner", dragLine).CornerRadius = UDim.new(0, 5)
+    -- Bottom Drag Bar
+    local dragBar = Instance.new("Frame")
+    dragBar.Name = "DragBar"
+    dragBar.Size = UDim2.new(1, 0, 0, 16)
+    dragBar.Position = UDim2.new(0, 0, 1, -16)
+    dragBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    dragBar.Active = true
+    dragBar.Parent = window
     
-    -- Optional grip visual
-    local grip = Instance.new("Frame")
-    grip.Size = UDim2.new(0.2, 0, 0.4, 0)
-    grip.Position = UDim2.new(0.4, 0, 0.3, 0)
-    grip.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    grip.BorderSizePixel = 0
-    grip.Parent = dragLine
-    Instance.new("UICorner", grip).CornerRadius = UDim.new(1, 0)
-    
-    -- DRAG TO MOVE LOGIC (PC + MOBILE)
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
-    local dragInput, inputType, startPos, startWindowPos
+    local startPos, startWindowPos
     
-    local function beginDrag(input)
-        dragging = true
-        dragInput = input
-        inputType = input.UserInputType
-        startPos = (inputType == Enum.UserInputType.Touch) and input.Position or UserInputService:GetMouseLocation()
-        startWindowPos = window.Position
-        dragLine.BackgroundColor3 = Color3.fromRGB(55, 100, 200)
-    end
+    -- For mobile: track the current touch
+    local currentTouch = nil
     
-    local function endDrag()
-        dragging = false
-        dragLine.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    end
-    
-    dragLine.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            beginDrag(input)
+    dragBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            startPos = UserInputService:GetMouseLocation()
+            startWindowPos = window.Position
+        elseif input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            currentTouch = input
+            startPos = input.Position
+            startWindowPos = window.Position
         end
-    end)
-    
-    dragLine.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            endDrag()
-        end
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+                currentTouch = nil
+            end
+        end)
     end)
     
     UserInputService.InputChanged:Connect(function(input)
-        if dragging and (input == dragInput) then
-            local currentPos = (inputType == Enum.UserInputType.Touch) and input.Position or UserInputService:GetMouseLocation()
-            local delta = currentPos - startPos
+        if dragging then
+            local cur
+            if input.UserInputType == Enum.UserInputType.MouseMovement then
+                cur = UserInputService:GetMouseLocation()
+            elseif input.UserInputType == Enum.UserInputType.Touch then
+                -- only respond to the currently tracked touch
+                if currentTouch and input == currentTouch then
+                    cur = input.Position
+                else
+                    return
+                end
+            else
+                return
+            end
+            local delta = cur - startPos
             window.Position = UDim2.new(
                 startWindowPos.X.Scale, startWindowPos.X.Offset + delta.X,
                 startWindowPos.Y.Scale, startWindowPos.Y.Offset + delta.Y
