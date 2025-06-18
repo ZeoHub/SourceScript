@@ -247,7 +247,7 @@ showZeoHubLoadingScreen(function()
     closeBtn.Text = "X"
     closeBtn.Font = Enum.Font.GothamBold
     closeBtn.TextSize = 18
-    closeBtn.TextColor3 = Color3.new(1,1,1)
+    closeBtn.TextColor3 = Color3.new(200, 65, 65)
     closeBtn.BackgroundTransparency = 0
     closeBtn.AutoButtonColor = true
     closeBtn.ZIndex = 12
@@ -687,6 +687,6 @@ showZeoHubLoadingScreen(function()
         minStroke.Color = Color3.fromRGB(255, 220, 120)
         minusIcon.BackgroundColor3 = Color3.fromRGB(255, 230, 150)
         local plusIcon = minimizeBtn:FindFirstChild("PlusIcon")
-        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(128, 128, 128) end
+        if plusIcon then plusIcon.TextColor3 = Color3.fromRGB(0, 128, 0) end
     end)
 end)
