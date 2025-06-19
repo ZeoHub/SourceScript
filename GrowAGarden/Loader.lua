@@ -127,8 +127,8 @@ showZeoHubLoadingScreen(function()
     local scriptLists = {
         ["Free Access (No Key)"] = {
             {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NatHub.lua"},
-            {name = "MomaHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/No-LagHub.lua"},
-            {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub"},
+            {name = "No-Lag Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/No-LagHub.lua"},
+            {name = "Kenniel Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Kenniel%20Hub.lua"},
             {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub1"},
             {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub2"},
             {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub3"},
@@ -136,7 +136,7 @@ showZeoHubLoadingScreen(function()
         },
         ["Key Access"] = {
             {name = "KeyedHub", url = "https://pastebin.com/raw/KeyedHub"},
-            {name = "SecretHub", url = "https://pastebin.com/raw/SecretHub"},
+            {name = "Solix Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Solix%20Hub.lua"},
             {name = "LockHub", url = "https://pastebin.com/raw/LockHub"},
             {name = "GitHub", url = "https://pastebin.com/raw/GitHub"},
             {name = "WallHackHub", url = "https://pastebin.com/raw/WalHackHub"},
