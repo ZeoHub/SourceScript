@@ -126,7 +126,7 @@ showZeoHubLoadingScreen(function()
     local tabNames = {"Main", "Free Access (No Key)", "Key Access", "Visual Scripts", "Credit"}
     local scriptLists = {
         ["Free Access (No Key)"] = {
-            {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/BlackHub.lua"},
+            {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NatHub.lua"},
             {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub"},
             {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub"},
             {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub1"},
