@@ -126,28 +126,28 @@ showZeoHubLoadingScreen(function()
     local tabNames = {"Main", "Free Access (No Key)", "Key Access", "Visual Scripts", "Credit"}
     local scriptLists = {
         ["Free Access (No Key)"] = {
-            {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NatHub.lua"},
-            {name = "No-Lag Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/No-LagHub.lua"},
-            {name = "Kenniel Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Kenniel%20Hub.lua"},
-            {name = "Menace Hub (OldServerFinder)", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/OldServerFinder.lua"},
-            {name = "ThunderZ Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/ThunderZ%20Hub.lua"},
-            {name = "Than Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Than%20Hub.lua"},
-            {name = "Black Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Black%20Hub.lua"},
+            {name = "NatHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/NatHub.lua"},
+            {name = "No-Lag Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/No-LagHub.lua"},
+            {name = "Kenniel Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Kenniel%20Hub.lua"},
+            {name = "Menace Hub (OldServerFinder)", url = "https://raw.githubusercontent.comV3/ZeoHub/GrowAGarden/refs/heads/main/Load/OldServerFinder.lua"},
+            {name = "ThunderZ Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/ThunderZ%20Hub.lua"},
+            {name = "Than Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Than%20Hub.lua"},
+            {name = "Black Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Black%20Hub.lua"},
         },
         ["Key Access"] = {
-            {name = "Rift", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Rift.lua"},
-            {name = "Solix Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Solix%20Hub.lua"},
-            {name = "Aussie WIRE vs GAG", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Aussie.lua"},
-            {name = "ForgeHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/ForgeHub.lua"},
-            {name = "Nicuse", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Nicuse.lua"},
-            {name = "NeoxHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NeoxHub.lua"},
+            {name = "Rift", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Rift.lua"},
+            {name = "Solix Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Solix%20Hub.lua"},
+            {name = "Aussie WIRE vs GAG", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Aussie.lua"},
+            {name = "ForgeHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/ForgeHub.lua"},
+            {name = "Nicuse", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Nicuse.lua"},
+            {name = "NeoxHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/NeoxHub.lua"},
         },
         ["Visual Scripts"] = {
-            {name = "Dark Spawner", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Weather", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
+            {name = "Dark Spawner", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
+            {name = "Weather", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refsV3/heads/main/Load/PetSpawner.lua"},
+            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
+            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
+            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
         }
     }
 
