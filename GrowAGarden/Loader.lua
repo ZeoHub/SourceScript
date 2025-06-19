@@ -131,8 +131,8 @@ showZeoHubLoadingScreen(function()
             {name = "Kenniel Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Kenniel%20Hub.lua"},
             {name = "Menace Hub (OldServerFinder)", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/OldServerFinder.lua"},
             {name = "ThunderZ Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/ThunderZ%20Hub.lua"},
-            {name = "MomaHub", url = "https://pastebin.com/raw/MomaHub3"},
-            {name = "No Lag Hub", url = "https://pastebin.com/raw/NoLagHub4"},
+            {name = "Than Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Than%20Hub.lua"},
+            {name = "Black Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Black%20Hub.lua"},
         },
         ["Key Access"] = {
             {name = "KeyedHub", url = "https://pastebin.com/raw/KeyedHub"},
