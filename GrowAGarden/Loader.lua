@@ -136,7 +136,7 @@ showZeoHubLoadingScreen(function()
         },
         ["Key Access"] = {
             {name = "Rift", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Rift.lua"},
-            {name = "Solix Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Solix%20Hub.lua"},
+            {name = "Lunor Hub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Solix%20Hub.lua"},
             {name = "Aussie WIRE vs GAG", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Aussie.lua"},
             {name = "ForgeHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/ForgeHub.lua"},
             {name = "Nicuse", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Nicuse.lua"},
