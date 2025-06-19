@@ -143,11 +143,11 @@ showZeoHubLoadingScreen(function()
             {name = "NeoxHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NeoxHub.lua"},
         },
         ["Visual Scripts"] = {
-            {name = "Dark Spawner", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Weather", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
-            {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/PetSpawner.lua"},
+            {name = "Dark Spawner", url = ""},
+            {name = "Weather", url = ""},
+            {name = "Coming Soon!", url = ""},
+            {name = "Coming Soon!", url = ""},
+            {name = "Coming Soon!", url = ""},
         }
     }
 
