@@ -140,7 +140,7 @@ showZeoHubLoadingScreen(function()
             {name = "Aussie WIRE vs GAG", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Aussie.lua"},
             {name = "ForgeHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/ForgeHub.lua"},
             {name = "Nicuse", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/Nicuse.lua"},
-            {name = "GalaxyHub", url = "https://pastebin.com/raw/GalaxyHub"},
+            {name = "NeoxHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refs/heads/main/Load/NeoxHub.lua"},
         },
         ["Visual Scripts"] = {
             {name = "Visual Hub 1", url = "https://pastebin.com/raw/VisualHub1"},
