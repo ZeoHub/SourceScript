@@ -143,8 +143,8 @@ showZeoHubLoadingScreen(function()
             {name = "NeoxHub", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/NeoxHub.lua"},
         },
         ["Visual Scripts"] = {
-            {name = "Pet Spawner", url = "https://github.com/ZeoHub/GrowAGardenV3/blob/main/Load/Pet%20Spawner.lua"},
-            {name = "Seed Spawner (Fixing)", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGarden/refsV3/heads/main/Load/PetSpawner.lua"},
+            {name = "Pet Spawner", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/Pet%20Spawner.lua"},
+            {name = "Seed Spawner (Fixing)", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
             {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
             {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
             {name = "Coming Soon!", url = "https://raw.githubusercontent.com/ZeoHub/GrowAGardenV3/refs/heads/main/Load/PetSpawner.lua"},
